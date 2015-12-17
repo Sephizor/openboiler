@@ -58,3 +58,7 @@ button {
     margin:1vh 0 !important;
     padding:1vh 5vw;
 }
+
+button.profileBtn {
+    height:3em;
+}

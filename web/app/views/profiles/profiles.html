@@ -1,0 +1,27 @@
+<div ng-hide="profile">
+    <div class="row">
+        <button class="col-xs-4 pull-left" ng-click="changeView('')">Back to main screen</button>
+    </div>
+    <div class="row" ng-repeat="profile in profiles">
+        <button class="col-xs-10 profileBtn" ng-click="makeActive(profile)">{{profile.name}}</button>
+        <button class="col-xs-1 profileBtn" ng-click="editProfile(profile)"><i class="fa fa-wrench"></i></button>
+        <button class="col-xs-1 profileBtn" ng-click="deleteProfile(profile)"><i class="fa fa-trash"></i></button>
+    </div>
+    
+    <form ng-submit="addProfile()">
+        <div class="col-xs-8">
+            <input ng-model="newName" class="form-control" type="text" />
+        </div>
+        <div class="col-xs-4">
+            <input type="submit" class="form-control" value="Add profile" />
+        </div>
+    </form>
+</div>
+<div ng-show="profile">
+    <div class="row">
+        <button class="col-xs-4 pull-left" ng-click="profile=null">Leave without saving</button>
+        <button class="col-xs-4 pull-right" ng-click="makeActive()">Save and activate</button>
+    </div>
+    <h1>{{profile.name}}</h1>
+    <h2>{{getDay()}}</h2>
+</div>
