@@ -1,6 +1,6 @@
 var gpio = require('pi-gpio');
 
-setTimeout(function () {
+setInterval(function () {
 	gpio.open(7, "in", function (err) {
 		gpio.read(7, function (data) {
 			console.log(data);
