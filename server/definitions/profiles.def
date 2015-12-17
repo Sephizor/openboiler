@@ -1,0 +1,16 @@
+profiles: profile[]
+
+profile: {
+    name: string,
+    days: day[]
+}
+
+day: {
+    name: string,
+    times: hour[]
+}
+
+hour: {
+    hour: int,
+    temperature: int
+}
