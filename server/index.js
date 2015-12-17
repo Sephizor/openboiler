@@ -1,7 +1,8 @@
 var gpio = require('pi-gpio');
 
+gpio.open(7, "in");
+
 setInterval(function () {
-    gpio.open(7, "in");
 
     gpio.read(7, function (err, value) {
         if(err) {
@@ -10,6 +11,10 @@ setInterval(function () {
         else {
             console.log(value);
         }
-        gpio.close(7);
     });
 }, 5000);
+
+process.on('SIGINT', function() {
+    console.log('Shutting down GPIO');
+    gpio.close(7);
+});
