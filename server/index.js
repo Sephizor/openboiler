@@ -17,4 +17,5 @@ setInterval(function () {
 process.on('SIGINT', function() {
     console.log('Shutting down GPIO');
     gpio.close(7);
+    process.exit();
 });
