@@ -1,0 +1,4 @@
+temperature: {
+    requested: int,
+    hours: int
+}
