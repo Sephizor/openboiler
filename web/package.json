@@ -1,0 +1,20 @@
+{
+  "name": "openboiler",
+  "version": "1.0.0",
+  "description": "An open source thermostat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.ncredinburgh.com/codefest/openboiler"
+  },
+  "keywords": [
+    "Open",
+    "Boiler",
+    "lol"
+  ],
+  "author": "Stephen Bayne, Andy Barratt",
+  "license": "MIT"
+}

@@ -1,0 +1,29 @@
+{
+  "name": "openboiler",
+  "description": "An open source thermostat",
+  "main": "index.js",
+  "authors": [
+    "Stephen Bayne",
+    "Andy Barratt"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Open",
+    "Boiler",
+    "lol"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "angular": "~1.4.8",
+    "angular-route": "~1.4.8"
+  }
+}
