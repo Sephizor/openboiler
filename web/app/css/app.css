@@ -1,0 +1,60 @@
+body {
+    color:#fff !important;
+    background:#507786 !important;
+}
+
+h1 {
+    font-size:7.5vh !important;
+}
+
+h3 {
+    font-size:4vh !important;
+    margin-top:3vh !important;
+}
+
+.current-temp {
+    font-size:25vw;
+}
+
+.current-temp-heading {
+    margin:10vh 2vw -15vh;
+    font-size:3vw;
+}
+
+.current-temp-unit {
+    font-size:7vw;
+}
+
+.target-temp {
+    font-size:17vh;
+}
+
+.target-temp-unit {
+    font-size:5vh;
+}
+
+.overrides {
+    background:rgba(255,255,255,0.8);
+    color:#507786;
+    padding:1vh 1vw;
+}
+
+.overrides h3 {
+    font-size:5vh;
+    margin-bottom:-2vh;
+}
+
+.overrides i {
+    font-size:11vh;
+    margin:1vh 0;
+    cursor:pointer;
+}
+
+button {
+    font-size:3vh !important;
+    background: rgba(255,255,255,0.8);
+    color:#507786 !important;
+    border:none;
+    margin:1vh 0 !important;
+    padding:1vh 5vw;
+}
