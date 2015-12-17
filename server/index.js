@@ -10,7 +10,6 @@ setInterval(function () {
         else {
             console.log(value);
         }
+        gpio.close(7);
     });
-
-    gpio.close(7);
 }, 5000);
