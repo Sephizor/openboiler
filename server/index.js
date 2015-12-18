@@ -96,7 +96,7 @@ app.get('/profiles', cors(corsOptions), function (req, res) {
 
 app.options('/profile', cors(corsOptions));
 app.post('/profile', cors(corsOptions), function (req, res) {
-    var newProfile = req.body.profile;
+    var newProfile = req.body;
 
     var profileName = newProfile.name.toLowerCase();
     //fs.writeFileSync('./profiles/' + profileName, newProfile);
