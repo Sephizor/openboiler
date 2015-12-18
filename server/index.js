@@ -94,7 +94,15 @@ app.options('/profile', cors(corsOptions));
 app.post('/profile', cors(corsOptions), function (req, res) {
     var newProfile = req.body.profile;
 
+    var profileName = newProfile.name.toLowerCase();
+    //fs.writeFileSync('./profiles/' + profileName, newProfile);
+
     console.log(newProfile);
+});
+
+app.delete('/profile', cors(corsOptions), function (req, res) {
+    var profileName = req.body.toLowerCase();
+
 });
 
 app.get('/activeProfile', cors(corsOptions), function (req, res) {
@@ -103,7 +111,8 @@ app.get('/activeProfile', cors(corsOptions), function (req, res) {
 
 app.options('/activeProfile', cors(corsOptions));
 app.post('/activeProfile', cors(corsOptions), function (req, res) {
-    fs.writeFileSync('./activeprofile', req.body);
+    console.log(req.body);
+    //fs.writeFileSync('./activeprofile', req.body);
 });
 
 app.options('/temperature', cors(corsOptions));
