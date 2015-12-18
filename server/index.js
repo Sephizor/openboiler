@@ -49,7 +49,7 @@ var setCurrentHour = function () {
 
 var setActiveTemperature = function () {
     var matchedDay = activeProfile.days.filter(function (day) {
-        return "Friday" == currentDay;
+        return day.name == currentDay;
     })[0];
 
     activeTemperature = matchedDay.times.filter(function (time) {
@@ -183,5 +183,11 @@ var sensor = {
 if(sensor.initialise()) {
     setInterval(function () {
         sensor.read();
+        if(activeTemperature > tempValue) {
+            boilerState = true;
+        }
+        else {
+            boilerState = false;
+        }
     }, 30000);
 }
