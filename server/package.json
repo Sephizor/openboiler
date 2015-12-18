@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "cors": "^2.7.1",
     "dht-sensor": "0.0.4",
     "express": "^4.13.3",

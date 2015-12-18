@@ -4,6 +4,7 @@ var wss = new WebSocketServer({ port: 8082 });
 var fs = require('fs');
 var app = require('express')();
 var cors = require('cors');
+var bodyParser = require('body-parser');
 
 // Web API
 
@@ -85,6 +86,9 @@ var corsOptions = {
   }
 };
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get('/profiles', cors(corsOptions), function (req, res) {
     getProfiles();
     res.json(profiles);
@@ -92,21 +96,39 @@ app.get('/profiles', cors(corsOptions), function (req, res) {
 
 app.options('/profile', cors(corsOptions));
 app.post('/profile', cors(corsOptions), function (req, res) {
+    var newProfile = req.body;
 
+    var profileName = newProfile.name.toLowerCase();
+
+    fs.writeFileSync('./profiles/' + profileName + '.profile', newProfile);
+
+    res.end();
 });
 
-app.get('/activeProfile', cors(corsOptions), function (req, res) {
+app.delete('/profile', cors(corsOptions), function (req, res) {
+    var profileName = req.body.name.toLowerCase();
+
+    fs.unlink('./profiles/' + profileName + '.profile');
+
+    res.end();
+});
+
+app.get('/activeprofile', cors(corsOptions), function (req, res) {
     res.json(activeProfile);
 });
 
-app.options('/activeProfile', cors(corsOptions));
-app.post('/activeProfile', cors(corsOptions), function (req, res) {
+app.options('/activeprofile', cors(corsOptions));
+app.post('/activeprofile', cors(corsOptions), function (req, res) {
     fs.writeFileSync('./activeprofile', req.body.name);
+    res.end();
 });
 
 app.options('/temperature', cors(corsOptions));
 app.post('/temperature', cors(corsOptions), function (req, res) {
+    var overriddenTemperature = req.body.temperature;
+    var timeToKeep = req.body.time;
 
+    console.log("Manual temperature: " + overriddenTemperature, "Time: " + time);
 });
 
 app.listen(8081);
@@ -117,9 +139,7 @@ var tempValue = 0;
 var humValue = 0;
 
 wss.on('connection', function (ws) {
-    ws.on('open', function () {
-        console.log('Client connected');
-    })
+    console.log('Client connected');
     ws.on('message', function (message) {
         if(message == 'isOn') {
             ws.send(boilerState);
@@ -155,6 +175,5 @@ var sensor = {
 if(sensor.initialise()) {
     setInterval(function () {
         sensor.read();
-        console.log(tempValue, humValue);
     }, 30000);
 }
