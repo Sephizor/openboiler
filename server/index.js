@@ -103,7 +103,7 @@ app.get('/activeProfile', cors(corsOptions), function (req, res) {
 
 app.options('/activeProfile', cors(corsOptions));
 app.post('/activeProfile', cors(corsOptions), function (req, res) {
-    fs.writeFileSync('./activeprofile', req.body.name);
+    fs.writeFileSync('./activeprofile', req.body);
 });
 
 app.options('/temperature', cors(corsOptions));
