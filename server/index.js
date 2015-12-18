@@ -4,6 +4,7 @@ var wss = new WebSocketServer({ port: 8082 });
 var fs = require('fs');
 var app = require('express')();
 var cors = require('cors');
+var bodyParser = require('body-parser');
 
 // Web API
 
@@ -84,6 +85,9 @@ var corsOptions = {
     callback(null, true);
   }
 };
+
+app.use(bodyParser.urlEncoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/profiles', cors(corsOptions), function (req, res) {
     getProfiles();
