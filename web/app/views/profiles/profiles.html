@@ -10,7 +10,7 @@
     
     <form ng-submit="addProfile()">
         <div class="col-xs-8">
-            <input ng-model="newName" class="form-control" type="text" />
+            <input ng-model="newName" placeholder="New profile name" class="form-control" type="text" />
         </div>
         <div class="col-xs-4">
             <input type="submit" class="form-control" value="Add profile" />
@@ -23,7 +23,7 @@
         <button class="col-xs-4 pull-right" ng-click="makeActive()">Save and activate</button>
     </div>
     <h1>{{profile.name}}</h1>
-    <h2>{{getDay()}}</h2>
+    <h2>{{day.name}}</h2>
     <div class="day-graph">
         <ul class="day-graph-labels-left">
             <li class="day-graph-labels-left-top">30&deg;</li
@@ -33,6 +33,7 @@
         <hr class="day-graph-bar day-graph-bar-top" />
         <hr class="day-graph-bar day-graph-bar-middle" />
         <hr class="day-graph-bar day-graph-bar-bottom" />
+        <hr class="day-graph-bar day-graph-bar-bottom-border" />
         <ul class="day-graph-labels-bottom">
             <li>00</li
             ><li>01</li
@@ -60,30 +61,7 @@
             ><li>23</li>
         </ul>
         <ul class="day-graph-bars">
-            <li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li
-            ><li>10</li>
+            <li ng-repeat="time in day.times" ng-style="getBarStyle(time.temperature)">{{time.temperature}}</li>
         </ul>
     </div>
     <div class="row day-arrows">
@@ -98,3 +76,4 @@
         </div>
     </div>
 </div>
+<!--<div class="row"><pre>{{profiles | json}}</pre></div>-->

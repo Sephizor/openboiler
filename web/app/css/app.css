@@ -1,6 +1,7 @@
 body {
     color:#fff !important;
     background:#507786 !important;
+    overflow-x:hidden;
 }
 
 h1 {
@@ -88,12 +89,16 @@ button.profileBtn {
     font-size:1.5vw;
 }
 
+.day-graph-labels-left-top {
+    line-height:11vh;
+}
+
 .day-graph-labels-left-middle {
-    line-height:20vh;
+    line-height:22vh;
 }
 
 .day-graph-labels-left-bottom {
-    line-height:35vh;
+    line-height:34vh;
 }
 
 .day-graph-bar {
@@ -103,15 +108,20 @@ button.profileBtn {
 }
 
 .day-graph-bar-top {
-    top:2vh;
+    top:5vh;
 }
 
 .day-graph-bar-middle {
-    top:27vh;
+    top:28vh;
 }
 
 .day-graph-bar-bottom {
+    top:51.5vh;
+}
+
+.day-graph-bar-bottom-border {
     top:52vh;
+    border-width:0.3vh;
 }
 
 .day-graph-labels-bottom, .day-graph-bars {
