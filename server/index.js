@@ -101,7 +101,7 @@ app.post('/profile', cors(corsOptions), function (req, res) {
 
     var profileName = newProfile.name.toLowerCase();
 
-    jsonfile.writefile('./profiles/' + profileName + '.profile', newProfile);
+    jsonfile.writeFile('./profiles/' + profileName + '.profile', newProfile);
 
     res.end();
 });
