@@ -117,7 +117,6 @@ app.get('/activeprofile', cors(corsOptions), function (req, res) {
 
 app.options('/activeprofile', cors(corsOptions));
 app.post('/activeprofile', cors(corsOptions), function (req, res) {
-    console.log(req.body);
     fs.writeFileSync('./activeprofile', req.body.name);
     res.end();
 });
