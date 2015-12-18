@@ -12,6 +12,7 @@ var jsonfile = require('jsonfile');
 var profiles = [];
 var activeProfile = {};
 var activeTemperature = 7;
+var timerInterval;
 
 Date.prototype.getDayOfWeek = function(){   
     return ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][ this.getDay() ];
@@ -60,7 +61,7 @@ var setActiveTemperature = function () {
 activeProfile = getActiveProfile();
 
 var startTiming = function () {
-    setInterval(setCurrentHour(), 3600000);
+    timerInterval = setInterval(setCurrentHour(), 3600000);
 };
 
 var sync = function () {
@@ -129,7 +130,11 @@ app.post('/temperature', cors(corsOptions), function (req, res) {
     var overriddenTemperature = req.body.temperature;
     var timeToKeep = req.body.time;
 
-    console.log("Manual temperature: " + overriddenTemperature, "Time: " + time);
+    clearInterval(timerInterval);
+    activeTemperature = overriddenTemperature;
+    setTimeout(startTiming(), time);
+
+    res.end();
 });
 
 app.listen(8081);
