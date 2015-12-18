@@ -141,6 +141,7 @@ var humValue = 0;
 
 wss.on('connection', function (ws) {
     console.log('Client connected');
+    var disconnected = false;
     ws.on('message', function (message) {
         if(message == 'isOn') {
             ws.send(boilerState);
@@ -148,13 +149,19 @@ wss.on('connection', function (ws) {
         else if(message == 'subscribe') {
             ws.send(JSON.stringify({ temp: tempValue, humidity: humValue}));
 
-            setInterval(function () {
-                ws.send(JSON.stringify({ temp: tempValue, humidity: humValue}));
+            var wsInterval = setInterval(function () {
+                if(!disconnected) {
+                    ws.send(JSON.stringify({ temp: tempValue, humidity: humValue}));
+                }
+                else {
+                    clearInterval(wsInterval);
+                }
             }, 30000);
         }
     });
     ws.on('close', function () {
         console.log('Client disconnected');
+        disconnected = true;
     });
 });
 
