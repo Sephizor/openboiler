@@ -99,15 +99,17 @@ app.post('/profile', cors(corsOptions), function (req, res) {
     var newProfile = req.body;
 
     var profileName = newProfile.name.toLowerCase();
-    //fs.writeFileSync('./profiles/' + profileName, newProfile);
 
-    console.log(newProfile);
+    fs.writeFileSync('./profiles/' + profileName + '.profile', newProfile);
 
     res.end();
 });
 
 app.delete('/profile', cors(corsOptions), function (req, res) {
     var profileName = req.body.toLowerCase();
+
+    fs.unlink('./profiles/' + profileName + '.profile');
+
     res.end();
 });
 
