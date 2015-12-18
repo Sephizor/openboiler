@@ -53,15 +53,16 @@ var tempValue = 0;
 var humValue = 0;
 
 wss.on('connection', function (ws) {
-    ws.send(tempValue);
-
-    setInterval(function () {
-        ws.send(JSON.stringify({ temp: tempValue, humidity: humValue}));
-    }, 30000);
-
     ws.on('message', function (message) {
         if(message == 'isOn') {
             ws.send(boilerState);
+        }
+        else if(message == 'subscribe') {
+            ws.send(JSON.stringify({ temp: tempValue, humidity: humValue}));
+
+            setInterval(function () {
+                ws.send(JSON.stringify({ temp: tempValue, humidity: humValue}));
+            }, 30000);
         }
     });
 });
