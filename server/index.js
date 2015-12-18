@@ -1,4 +1,4 @@
-var gpio = require('pi-gpio');
+var dht = require('node-dht-sensor');
 var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({ port: 8082 });
 var fs = require('fs');
@@ -35,6 +35,7 @@ app.post('/temperature', cors(corsOptions), function (req, res) {
 // Web socket
 
 var tempValue = 0;
+var humValue = 0;
 
 wss.on('connection', function (ws) {
     ws.send(tempValue);
@@ -54,22 +55,20 @@ wss.on('connection', function (ws) {
 
 var boilerState = false;
 
-gpio.open(7, "in");
+var sensor = {
+    initialise: function () {
+        return dht.initialize(11, 4);
+    },
+    read: function () {
+        var readout = dht.read();
+        tempValue = readout.temperature;
+        humValue = readout.humidity;
+    }
+};
 
-setInterval(function () {
-    gpio.read(7, function (err, value) {
-        if(err) {
-            console.log(err);
-        }
-        else {
-            tempValue = value;
-            console.log(value);
-        }
-    });
-}, 30000);
-
-process.on('SIGINT', function() {
-    console.log('Shutting down GPIO');
-    gpio.close(7);
-    process.exit();
-});
+if(sensor.initialise()) {
+    setInterval(function () {
+        sensor.read();
+        console.log(tempValue, humValue);
+    }, 30000);
+}
