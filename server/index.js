@@ -98,20 +98,23 @@ app.post('/profile', cors(corsOptions), function (req, res) {
     //fs.writeFileSync('./profiles/' + profileName, newProfile);
 
     console.log(newProfile);
+
+    res.end();
 });
 
 app.delete('/profile', cors(corsOptions), function (req, res) {
     var profileName = req.body.toLowerCase();
-
+    res.end();
 });
 
-app.get('/activeProfile', cors(corsOptions), function (req, res) {
+app.get('/activeprofile', cors(corsOptions), function (req, res) {
     res.json(activeProfile);
 });
 
-app.options('/activeProfile', cors(corsOptions));
-app.post('/activeProfile', cors(corsOptions), function (req, res) {
+app.options('/activeprofile', cors(corsOptions));
+app.post('/activeprofile', cors(corsOptions), function (req, res) {
     console.log(req.body);
+    res.end();
     //fs.writeFileSync('./activeprofile', req.body);
 });
 
