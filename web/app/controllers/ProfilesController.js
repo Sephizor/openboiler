@@ -1,21 +1,25 @@
-angular.module('openboiler').controller('ProfilesController', ['$scope', function ($scope) {
+angular.module('openboiler').controller('ProfilesController', ['$scope', 'ApiService', function ($scope, ApiService) {
     
     $scope.deleteProfile = function(profile) {
-        $scope.$parent.profiles = $scope.$parent.profiles.filter(function(d) {
-            return d !== profile;
+        service.deleteProfile(profile.name, function() {
+            $scope.$parent.profiles = $scope.$parent.profiles.filter(function(d) {
+                return d !== profile;
+            });
         });
     };
     $scope.editProfile = function(profile) {
         $scope.profile = profile;
         $scope.day = profile.days[0];
-    }
+    };
     $scope.makeActive = function(toActivate) {
-        if(toActivate) {
-            $scope.profile = toActivate;
+        if(!toActivate) {
+            toActivate = $scope.profile;
         }
-        $scope.$parent.activeProfile = $scope.profile;
-        $scope.$parent.changeView('');
-    }
+        ApiService.selectProfile(toActivate.name, function() {
+            $scope.$parent.activeProfile = toActivate;
+            $scope.$parent.changeView('');
+        });
+    };
     $scope.getBarStyle = function(temp) {
         var minHeight = 3;
         var maxHeight = 60;
@@ -26,7 +30,21 @@ angular.module('openboiler').controller('ProfilesController', ['$scope', functio
         return {
             'height': height
         };
-    }
+    };
+    
+    $scope.nextDay = function() {
+        var i = $scope.profile.days.indexOf($scope.day);
+        if(i>=0 && i < $scope.profile.days.length - 1) {
+            $scope.day = $scope.profile.days[i + 1];
+        }
+    };
+    
+    $scope.previousDay = function() {
+        var i = $scope.profile.days.indexOf($scope.day);
+        if(i>0 && i <= $scope.profile.days.length - 1) {
+            $scope.day = $scope.profile.days[i - 1];
+        }
+    };
     
     $scope.addProfile = function() {
         var newProfile = {
@@ -238,7 +256,9 @@ angular.module('openboiler').controller('ProfilesController', ['$scope', functio
             ]
         };
         if($scope.newName) {
-            $scope.$parent.profiles.push(newProfile);
+            ApiService.addProfile(newProfile, function() {
+                $scope.$parent.profiles.push(newProfile);
+            });
         }
     };
 }]);

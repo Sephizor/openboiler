@@ -181,6 +181,7 @@ button.profileBtn {
 
 .day-arrows i {
     font-size:3.5vw;
+    cursor:pointer;
 }
 
 /* End of graph styles */
