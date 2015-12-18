@@ -1,7 +1,7 @@
 angular.module('openboiler').controller('ProfilesController', ['$scope', 'ApiService', function ($scope, ApiService) {
     
     $scope.deleteProfile = function(profile) {
-        service.deleteProfile(profile.name, function() {
+        ApiService.deleteProfile(profile.name, function() {
             $scope.$parent.profiles = $scope.$parent.profiles.filter(function(d) {
                 return d !== profile;
             });
