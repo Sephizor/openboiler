@@ -92,7 +92,9 @@ app.get('/profiles', cors(corsOptions), function (req, res) {
 
 app.options('/profile', cors(corsOptions));
 app.post('/profile', cors(corsOptions), function (req, res) {
+    var newProfile = req.body.profile;
 
+    console.log(newProfile);
 });
 
 app.get('/activeProfile', cors(corsOptions), function (req, res) {
@@ -106,7 +108,10 @@ app.post('/activeProfile', cors(corsOptions), function (req, res) {
 
 app.options('/temperature', cors(corsOptions));
 app.post('/temperature', cors(corsOptions), function (req, res) {
+    var overriddenTemperature = req.body.temperature;
+    var timeToKeep = req.body.time;
 
+    console.log("Manual temperature: " + overriddenTemperature, "Time: " + time);
 });
 
 app.listen(8081);
@@ -155,6 +160,5 @@ var sensor = {
 if(sensor.initialise()) {
     setInterval(function () {
         sensor.read();
-        console.log(tempValue, humValue);
     }, 30000);
 }
