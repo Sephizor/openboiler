@@ -5,6 +5,7 @@ var fs = require('fs');
 var app = require('express')();
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var jsonfile = require('jsonfile');
 
 // Web API
 
@@ -100,7 +101,7 @@ app.post('/profile', cors(corsOptions), function (req, res) {
 
     var profileName = newProfile.name.toLowerCase();
 
-    fs.writeFileSync('./profiles/' + profileName + '.profile', newProfile);
+    jsonfile.writefile('./profiles/' + profileName + '.profile', newProfile);
 
     res.end();
 });
