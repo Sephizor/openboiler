@@ -19,7 +19,15 @@ var corsOptions = {
 };
 
 app.get('/profiles', cors(corsOptions), function (req, res) {
-
+    var dir = './profiles';
+    fs.readdir(dir, function (err, files) {
+        var profiles = [];
+        files.forEach(function (file) {
+            var contents = fs.readFileSync(dir + '/' + file, 'utf-8');
+            profiles.push(JSON.parse(contents));
+        });
+        res.json(profiles);
+    });
 });
 
 app.options('/profile', cors(corsOptions));
@@ -32,6 +40,8 @@ app.post('/temperature', cors(corsOptions), function (req, res) {
 
 });
 
+app.listen(8081);
+
 // Web socket
 
 var tempValue = 0;
@@ -41,7 +51,7 @@ wss.on('connection', function (ws) {
     ws.send(tempValue);
 
     setInterval(function () {
-        ws.send(tempValue);
+        ws.send(JSON.stringify({ temp: tempValue, humidity: humValue}));
     }, 30000);
 
     ws.on('message', function (message) {
