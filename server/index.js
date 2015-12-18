@@ -122,9 +122,7 @@ var tempValue = 0;
 var humValue = 0;
 
 wss.on('connection', function (ws) {
-    ws.on('open', function () {
-        console.log('Client connected');
-    })
+    console.log('Client connected');
     ws.on('message', function (message) {
         if(message == 'isOn') {
             ws.send(boilerState);
