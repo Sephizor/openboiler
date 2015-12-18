@@ -86,7 +86,7 @@ var corsOptions = {
   }
 };
 
-app.use(bodyParser.urlEncoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/profiles', cors(corsOptions), function (req, res) {
