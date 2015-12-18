@@ -22,11 +22,16 @@ app.get('/profiles', cors(corsOptions), function (req, res) {
     var dir = './profiles';
     fs.readdir(dir, function (err, files) {
         var profiles = [];
-        files.forEach(function (file) {
-            var contents = fs.readFileSync(dir + '/' + file, 'utf-8');
-            profiles.push(JSON.parse(contents));
-        });
-        res.json(profiles);
+        if(!err && files) {
+            files.forEach(function (file) {
+                var contents = fs.readFileSync(dir + '/' + file, 'utf-8');
+                profiles.push(JSON.parse(contents));
+            });
+            res.json(profiles);
+        }
+        else {
+            res.json([]);
+        }
     });
 });
 
