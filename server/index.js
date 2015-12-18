@@ -106,7 +106,7 @@ app.post('/profile', cors(corsOptions), function (req, res) {
 });
 
 app.delete('/profile', cors(corsOptions), function (req, res) {
-    var profileName = req.body.toLowerCase();
+    var profileName = req.body.name.toLowerCase();
 
     fs.unlink('./profiles/' + profileName + '.profile');
 
