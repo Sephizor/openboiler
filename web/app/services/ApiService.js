@@ -11,6 +11,17 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
             console.log('API profiles request failed', response);
         });
     };
+
+    service.getActiveProfile = function (callback) {
+        return $http({
+            url: 'http://192.168.1.180:8081/activeprofile',
+            method: 'GET',
+        }).then(function (data) {
+            callback(data);
+        }, function (err) {
+            console.log('API call for active profile failed: ' + err);
+        });
+    };
     
     service.selectProfile = function(profileName, callback) {
         $http({
@@ -71,6 +82,17 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
             callback(data);
         }, function (err) {
             console.log('API call for weather failed: ' + err);
+        });
+    };
+
+    service.overrideTemperature = function (temp, time) {
+        $http({
+            url: 'http://192.168.1.180:8081/temperature',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: { temperature: temp, time: time }
         });
     };
     

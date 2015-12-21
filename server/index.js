@@ -13,7 +13,12 @@ var http = require('http');
 var profiles = [];
 var activeProfile = {};
 var activeTemperature = 7;
+var isManualOverride = false;
+var overriddenTemperature = 0;
+var overrideTime = 0;
+var overrideTimeFrom = 0;
 var timerInterval;
+var overrideTimeout;
 var apiKey = fs.readFileSync('./weather-api-key.txt', 'utf-8');
 
 Date.prototype.getDayOfWeek = function(){   
@@ -140,6 +145,9 @@ app.delete('/profile', cors(corsOptions), function (req, res) {
 });
 
 app.get('/activeprofile', cors(corsOptions), function (req, res) {
+    if(isManualOverride) {
+        res.json({ temp: overriddenTemperature, resetTime: overrideTimeFrom + overrideTime });
+    }
     res.json(activeProfile);
 });
 
@@ -151,14 +159,23 @@ app.post('/activeprofile', cors(corsOptions), function (req, res) {
 
 app.options('/temperature', cors(corsOptions));
 app.post('/temperature', cors(corsOptions), function (req, res) {
-    var overriddenTemperature = req.body.temperature;
-    var timeToKeep = req.body.time;
+    overriddenTemperature = req.body.temperature;
+    overrideTime = req.body.time;
+    overrideTimeFrom = Date.now();
 
     clearInterval(timerInterval);
     activeTemperature = overriddenTemperature;
-    setTimeout(startTiming(), time);
+    overrideTimeout = setTimeout(startTiming(), overrideTime);
 
     res.end();
+});
+
+app.delete('/temperature', cors(corsOptions), function (req, res) {
+    overriddenTemperature = 0;
+    overrideTime = 0;
+    overrideTimeFrom = 0;
+    clearTimeout(overrideTimeout);
+    startTiming();
 });
 
 app.listen(8081);
