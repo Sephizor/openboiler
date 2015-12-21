@@ -62,6 +62,17 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
             console.log('API delete profile request failed', response);
         });
     };
+
+    service.getWeather = function (callback) {
+        return $http({
+            url: 'http://192.168.1.180:8081/weather',
+            method: 'GET',
+        }).then(function (data) {
+            callback(data);
+        }, function (err) {
+            console.log('API call for weather failed: ' + err);
+        });
+    };
     
     return service;
 }]);

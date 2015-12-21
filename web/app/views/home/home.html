@@ -5,17 +5,18 @@
     <span class="current-temp-unit">C</span>
 </div>
 <div class="col-xs-12 col-md-6">
-    <h3>Edinburgh 12&deg;C</h3>
+    <h3>Edinburgh {{weatherData.temp}}&deg;C</h3>
     <div class="row">
         <div class="col-xs-4">
             <i class="fa fa-cloud" style="font-size:20vh;"></i>
         </div>
         <div class="col-xs-8">
             <ul class="list-unstyled" style="font-size:3.6vh">
-                <li>High 13&deg;C</li>
-                <li>Low 11&deg;C</li>
-                <li>Sunrise 08:39</li>
-                <li>Sunset 15:40</li>
+                <li>High {{weatherData.maxTemp}}&deg;C</li>
+                <li>Low {{weatherData.minTemp}}&deg;C</li>
+                <li>Pressure {{weatherData.pressure}} hPa</li>
+                <li>Sunrise {{weatherData.sunrise | date: 'hh:mm'}}</li>
+                <li>Sunset {{weatherData.sunset | date: 'hh:mm'}}</li>
             </ul>
         </div>
     </div>

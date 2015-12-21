@@ -1,7 +1,13 @@
-angular.module('openboiler').controller('HomeController', ['$scope', '$filter', function ($scope, $filter) {
-	$scope.formatDate = function () {
-		var date = new Date();
+angular.module('openboiler').controller('HomeController', ['$scope', '$filter', 'ApiService', function ($scope, $filter, ApiService) {
+    $scope.weatherData = {};
 
-		return $filter('date')(date, 'EEEE dd MMMM yyyy');
-	};
+    ApiService.getWeather(function (data) {
+        $scope.weatherData = data.data;
+    });
+
+    $scope.formatDate = function () {
+        var date = new Date();
+
+        return $filter('date')(date, 'EEEE dd MMMM yyyy');
+    };
 }]);

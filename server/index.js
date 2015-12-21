@@ -6,6 +6,7 @@ var app = require('express')();
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var jsonfile = require('jsonfile');
+var http = require('http');
 
 // Web API
 
@@ -13,6 +14,7 @@ var profiles = [];
 var activeProfile = {};
 var activeTemperature = 7;
 var timerInterval;
+var apiKey = fs.readFileSync('./weather-api-key.txt', 'utf-8');
 
 Date.prototype.getDayOfWeek = function(){   
     return ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][ this.getDay() ];
@@ -90,6 +92,28 @@ var corsOptions = {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.get('/weather', cors(corsOptions), function (req, res) {
+    http.get('http://api.openweathermap.org/data/2.5/weather?q=Edinburgh&units=metric&appid=' + apiKey, function (response) {
+        var retData = '';
+        response.on('data', function (data) {
+            retData += data;
+        });
+        response.on('end', function () {
+            retData = JSON.parse(retData);
+            res.json({
+                temp: retData.main.temp,
+                pressure: retData.main.pressure,
+                minTemp: retData.main.temp_min,
+                maxTemp: retData.main.temp_max,
+                sunrise: retData.sys.sunrise * 1000,
+                sunset: retData.sys.sunset * 1000
+            });    
+        });
+    }).on('error', function (err) {
+        res.send(err);
+    });
+});
 
 app.get('/profiles', cors(corsOptions), function (req, res) {
     getProfiles();
