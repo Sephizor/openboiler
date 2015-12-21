@@ -10,4 +10,12 @@ angular.module('openboiler').controller('HomeController', ['$scope', '$filter', 
 
         return $filter('date')(date, 'EEEE dd MMMM yyyy');
     };
+
+    $scope.targetTemperature = 20;
+
+    $scope.setTemperature = function (newTemp) {
+        if(newTemp > 6 && newTemp < 35) {
+            $scope.targetTemperature = newTemp;
+        }
+    };
 }]);
