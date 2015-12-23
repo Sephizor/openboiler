@@ -112,7 +112,9 @@ app.get('/weather', cors(corsOptions), function (req, res) {
                 minTemp: retData.main.temp_min,
                 maxTemp: retData.main.temp_max,
                 sunrise: retData.sys.sunrise * 1000,
-                sunset: retData.sys.sunset * 1000
+                sunset: retData.sys.sunset * 1000,
+		summary: retData.weather[0].main,
+		icon: retData.weather[0].icon
             });    
         });
     }).on('error', function (err) {
