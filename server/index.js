@@ -68,7 +68,7 @@ var setActiveTemperature = function () {
 activeProfile = getActiveProfile();
 
 var startTiming = function () {
-    timerInterval = setInterval(setCurrentHour(), 3600000);
+    timerInterval = setInterval(setCurrentHour, 3600000);
 };
 
 var sync = function () {
