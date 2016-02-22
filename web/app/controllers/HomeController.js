@@ -29,10 +29,12 @@ angular.module('openboiler').controller('HomeController', ['$scope', '$filter', 
 
     $scope.override = function () {
         $scope.isManual = true;
+        ApiService.overrideTemperature($scope.targetTemperature, 60 * 1000 * 60);
     };
 
     $scope.stopOverride = function () {
         $scope.isManual = false;
+        ApiService.cancelOverride();
     }
 
     $scope.getWeatherFontClass = function () {

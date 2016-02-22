@@ -7,6 +7,7 @@ var cors = require('cors');
 var bodyParser = require('body-parser');
 var jsonfile = require('jsonfile');
 var http = require('http');
+var ps = require('child_process').exec;
 
 // Web API
 
@@ -232,10 +233,16 @@ if(sensor.initialise()) {
     setInterval(function () {
         sensor.read();
         if(activeTemperature > tempValue) {
-            boilerState = true;
+            if(!boilerState) {
+                boilerState = true;
+                ps('/usr/bin/bgas on');
+            }
         }
         else {
-            boilerState = false;
+            if(boilerState) {
+                boilerState = false;
+                ps('/usr/bin/bgas off');
+            }
         }
     }, 30000);
 }
