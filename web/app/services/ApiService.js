@@ -1,9 +1,11 @@
 angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
     var service = {};
+
+    var baseUrl = 'http://192.168.1.5:8081';
     
     service.initProfiles = function(callback) {
         $http({
-            url: 'http://192.168.1.180:8081/profiles',
+            url: baseUrl + '/profiles',
             method: 'GET'
         }).then(function(response) {
             callback(response.data);
@@ -14,7 +16,7 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
 
     service.getActiveProfile = function (callback) {
         return $http({
-            url: 'http://192.168.1.180:8081/activeprofile',
+            url: baseUrl + '/activeprofile',
             method: 'GET',
         }).then(function (data) {
             callback(data);
@@ -25,7 +27,7 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
     
     service.selectProfile = function(profileName, callback) {
         $http({
-            url: 'http://192.168.1.180:8081/activeprofile',
+            url: baseUrl + '/activeprofile',
             method: 'POST',
             data: { name: profileName },
             headers: {
@@ -42,7 +44,7 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
     
     service.addProfile = function(profile, callback) {
         $http({
-            url: 'http://192.168.1.180:8081/profile',
+            url: baseUrl + '/profile',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,7 +61,7 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
     
     service.deleteProfile = function(profileName, callback) {
         $http({
-            url: 'http://192.168.1.180:8081/profile',
+            url: baseUrl + '/profile',
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -76,7 +78,7 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
 
     service.getWeather = function (callback) {
         return $http({
-            url: 'http://192.168.1.180:8081/weather',
+            url: baseUrl + '/weather',
             method: 'GET',
         }).then(function (data) {
             callback(data);
@@ -87,7 +89,7 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
 
     service.overrideTemperature = function (temp, time) {
         $http({
-            url: 'http://192.168.1.180:8081/temperature',
+            url: baseUrl + '/temperature',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
