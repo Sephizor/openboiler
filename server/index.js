@@ -178,7 +178,7 @@ app.delete('/temperature', cors(corsOptions), function (req, res) {
     overrideTime = 0;
     overrideTimeFrom = 0;
     clearTimeout(overrideTimeout);
-    startTiming();
+    sync();
 
     res.end();
 });
