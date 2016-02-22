@@ -253,7 +253,7 @@ var readSensor = function () {
 };
 
 if(sensor.initialise()) {
-    setInterval(readSensor, 30000);
+    setInterval(readSensor, 10000);
     sensor.forceRead();
     readSensor();
 }
