@@ -102,7 +102,7 @@ angular.module('openboiler').factory('ApiService', [ '$http', function($http) {
         $http({
             url: baseUrl + '/temperature',
             method: 'DELETE'
-        });.then(function () {}, function (err) {
+        }).then(function () {}, function (err) {
             console.log('API call for cancelOverride failed: ' + err);
         });
     };
