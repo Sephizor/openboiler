@@ -228,6 +228,9 @@ var sensor = {
         var readout = dht.read();
         tempValue = readout.temperature;
         humValue = readout.humidity;
+    },
+    forceRead: function () {
+        dht.read();
     }
 };
 
@@ -251,5 +254,6 @@ var readSensor = function () {
 
 if(sensor.initialise()) {
     setInterval(readSensor, 30000);
+    sensor.forceRead();
     readSensor();
 }
