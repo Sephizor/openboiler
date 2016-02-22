@@ -231,22 +231,25 @@ var sensor = {
     }
 };
 
+var readSensor = function () {
+    sensor.read();
+    if(activeTemperature > tempValue) {
+        if(!boilerState) {
+            boilerState = true;
+            ps('/usr/bin/bgas on');
+            console.log('Issuing ON command to boiler');
+        }
+    }
+    else {
+        if(boilerState) {
+            boilerState = false;
+            ps('/usr/bin/bgas off');
+            console.log('Issuing OFF command to boiler');
+        }
+    }
+};
+
 if(sensor.initialise()) {
-    setInterval(function () {
-        sensor.read();
-        if(activeTemperature > tempValue) {
-            if(!boilerState) {
-                boilerState = true;
-                ps('/usr/bin/bgas on');
-                console.log('Issuing ON command to boiler');
-            }
-        }
-        else {
-            if(boilerState) {
-                boilerState = false;
-                ps('/usr/bin/bgas off');
-                console.log('Issuing OFF command to boiler');
-            }
-        }
-    }, 30000);
+    setInterval(readSensor, 30000);
+    readSensor();
 }
