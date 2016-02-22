@@ -238,12 +238,14 @@ if(sensor.initialise()) {
             if(!boilerState) {
                 boilerState = true;
                 ps('/usr/bin/bgas on');
+                console.log('Issuing ON command to boiler');
             }
         }
         else {
             if(boilerState) {
                 boilerState = false;
                 ps('/usr/bin/bgas off');
+                console.log('Issuing OFF command to boiler');
             }
         }
     }, 30000);
