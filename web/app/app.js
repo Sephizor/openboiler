@@ -11,3 +11,6 @@ angular.module('openboiler').config(['$routeProvider', function ($routeProvider)
 		redirectTo: '/'
 	});
 }]);
+
+angular.module('openboiler').constant('WebApiUrl', 'http://192.168.1.5:8081');
+angular.module('openboiler').constant('WebSocketUrl', 'ws://192.168.1.5:8082');

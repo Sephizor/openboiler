@@ -1,4 +1,4 @@
-angular.module('openboiler').controller('MainController', ['$scope', '$location', 'WebSocketsService', 'ApiService', function ($scope, $location, WebSocketsService, ApiService) {
+angular.module('openboiler').controller('MainController', ['$scope', '$location', 'WebSocketService', 'ApiService', function ($scope, $location, WebSocketService, ApiService) {
     
     $scope.changeView = function(view) {
         $location.path(view);
@@ -17,7 +17,7 @@ angular.module('openboiler').controller('MainController', ['$scope', '$location'
         $scope.profiles = data;
     }
     
-    WebSocketsService.init(setSensorData);
+    WebSocketService.init(setSensorData);
     
     ApiService.initProfiles(setProfiles);
 }]);
