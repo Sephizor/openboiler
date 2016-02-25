@@ -208,7 +208,7 @@ wss.on('connection', function (ws) {
                 else {
                     clearInterval(wsInterval);
                 }
-            }, 30000);
+            }, 10000);
         }
     });
     ws.on('close', function () {
