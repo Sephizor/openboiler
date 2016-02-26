@@ -1,4 +1,4 @@
-angular.module('openboiler').controller('ProfilesController', ['$scope', 'ApiService', function ($scope, ApiService) {
+angular.module('openboiler').controller('ProfilesController', ['$scope', '$rootScope', '$timeout', 'ApiService', function ($scope, $rootScope, $timeout, ApiService) {
     
     $scope.deleteProfile = function(profile) {
         ApiService.deleteProfile(profile.name, function() {
@@ -10,6 +10,9 @@ angular.module('openboiler').controller('ProfilesController', ['$scope', 'ApiSer
     $scope.editProfile = function(profile) {
         $scope.profile = profile;
         $scope.day = profile.days[0];
+        $timeout(function () {
+            $rootScope.$broadcast('RENDER_CHART', $scope.day.times);
+        });
     };
     $scope.makeActive = function(toActivate) {
         if(!toActivate) {

@@ -1,4 +1,24 @@
-<div ng-hide="profile">
+<style>
+    .bar {
+      fill: steelblue;
+    }
+
+    .axis {
+      font: 10px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+      display: none;
+    }
+</style>
+<div ng-if="!profile">
     <div class="row">
         <button class="col-xs-4 pull-left" ng-click="changeView('')">Back to main screen</button>
     </div>
@@ -17,14 +37,15 @@
         </div>
     </form>
 </div>
-<div ng-show="profile">
+<div ng-if="profile" style="height: 100%;">
     <div class="row">
         <button class="col-xs-4 pull-left" ng-click="profile=null">Leave without saving</button>
         <button class="col-xs-4 pull-right" ng-click="makeActive()">Save and activate</button>
     </div>
     <h1>{{profile.name}}</h1>
     <h2>{{day.name}}</h2>
-    <div class="day-graph">
+    <div id="day-chart" style="width: 100%; height: 100%;">
+    <!-- <div class="day-graph">
         <ul class="day-graph-labels-left">
             <li class="day-graph-labels-left-top">30&deg;</li>
             <li class="day-graph-labels-left-middle">20&deg;</li>
@@ -74,6 +95,8 @@
         <div class="col-xs-1 text-right">
             <i class="fa fa-arrow-right" ng-click="nextDay()"></i>
         </div>
+    </div> -->
+        <d3daychart></d3daychart>
     </div>
 </div>
 <!--<div class="row"><pre>{{profiles | json}}</pre></div>-->
